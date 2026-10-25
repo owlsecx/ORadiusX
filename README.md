@@ -18,21 +18,18 @@
 
 ## 📌 Overview
 
-Offline AAA / RADIUS (FreeRADIUS) server configuration auditor
+ORadiusX is an offline, read-only auditor for FreeRADIUS/radiusd AAA configurations. It parses raddb trees, clients.conf and EAP modules to flag weak secrets, the BlastRADIUS vulnerability (CVE-2024-3596), EAP/TLS issues and insecure proxy, LDAP and SQL settings. Secrets are masked and findings map to CWE and MITRE.
 
 ---
 
 ## ✨ Features
 
-- Stdlib FreeRADIUS config parser (sections, pairs, unlang words, quoted strings, ${var} expansion)
-- clients.conf — default 'testing123', short / guessable / reused secrets, 0.0.0.0/0 clients, Message-Authenticator (BlastRADIUS CVE-2024-3596), limit_proxy_state
-- radiusd.conf — run-as user, core dumps, password logging, vulnerable OpenSSL, status_server, wildcard listeners, control-socket rw without uid restriction
-- EAP — tls_min_version, cipher_list, private_key_password, check_crl, auto_chain, MD5 / LEAP, MSCHAPv2 preference, PEAP / TTLS inner virtual server, bootstrap test certs
-- ldap / sql / proxy.conf / detail / linelog / users file
-- World-readable secrets & private keys, inner-tunnel copy
-- Secrets masked everywhere; --root discovery; CWE + MITRE
-- Export TXT / Markdown / JSON / CSV / SARIF 2.1.0
-- Self-test --demo, CI gates --fail-on / --min-severity
+- Stdlib FreeRADIUS parser handling sections, unlang words and ${var} expansion
+- clients.conf checks for default/short/reused secrets and BlastRADIUS (CVE-2024-3596)
+- radiusd.conf review of run-as user, core dumps, password logging and listeners
+- EAP/TLS analysis of protocol versions, ciphers, CRL, MSCHAPv2 and inner tunnels
+- ldap/sql/proxy.conf and users-file checks plus world-readable secret/key detection
+- TXT/Markdown/JSON/CSV/SARIF export, --root discovery and CI gates
 
 ---
 
@@ -46,7 +43,10 @@ Offline AAA / RADIUS (FreeRADIUS) server configuration auditor
 ## 🚀 Usage
 
 ```bash
-./ORadiusX
+./ORadiusX --home /etc/freeradius/3.0
+./ORadiusX --clients clients.conf --sarif -o report.sarif
+./ORadiusX --scan --root /mnt/collected --fail-on high
+./ORadiusX --help
 ```
 
 ---
