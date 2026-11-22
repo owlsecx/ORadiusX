@@ -53,7 +53,7 @@ ORadiusX is an offline, read-only auditor for FreeRADIUS/radiusd AAA configurati
 
 ## 📦 Part of OwlSec Toolkit
 
-This tool is part of the **OwlSec** suite — a collection of 300+ security and privacy tools.
+This tool is part of the **OwlSec** suite — a collection of 275+ security and privacy tools.
 
 🔗 [owlsec.org](https://owlsec.org)
 
